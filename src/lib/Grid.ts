@@ -23,7 +23,9 @@ class Grid {
 				width,
 				height,
 				{
+					// @ts-ignore
 					oscillator: { type: 'sine' },
+					// @ts-ignore
 					envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 },
 				},
 				{ frequency: 1100, rolloff: -12 }
@@ -32,7 +34,9 @@ class Grid {
 				width,
 				height,
 				{
+					// @ts-ignore
 					oscillator: { type: 'sawtooth' },
+					// @ts-ignore
 					envelope: {
 						attack: 0.005,
 						decay: 0.1,
@@ -56,7 +60,7 @@ class Grid {
 		return this.data[Util.coordToIndex(x, y, this.height)].hasNote(this.currentInstrument)
 	}
 
-	setTileValue(x: number, y: number, armed: boolean) {
+	setTileValue(x: number, y: number, armed: boolean): void {
 		if (armed) {
 			if (this.getTileValue(x, y)) return
 			// Turning on, schedule note

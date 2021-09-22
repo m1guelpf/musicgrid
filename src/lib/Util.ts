@@ -19,7 +19,7 @@ class Util {
 	}
 
 	// Adapted from https://stackoverflow.com/a/3368118/2234742
-	static drawRoundedRectangle(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number = 5, fill: boolean = false, stroke: boolean = true) {
+	static drawRoundedRectangle(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius = 5, fill = false, stroke = true): void {
 		ctx.beginPath()
 		ctx.moveTo(x + radius, y)
 		ctx.lineTo(x + width - radius, y)

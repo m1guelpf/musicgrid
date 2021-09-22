@@ -18,9 +18,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": "/",
-      "paths": {
+    "paths": {
         "@/*": ["./src/*"]
-      }
+    }
   },
   "include": [
     "next-env.d.ts",

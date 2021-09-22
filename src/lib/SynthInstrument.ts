@@ -70,7 +70,7 @@ class SynthInstrument {
 		return playEvent
 	}
 
-	unscheduleNote(id: number) {
+	unscheduleNote(id: number): void {
 		const { x } = this.notes[id]
 		delete this.notes[id]
 
