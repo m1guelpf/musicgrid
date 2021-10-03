@@ -6,7 +6,7 @@ import { useRouter } from 'next/dist/client/router'
 const Home: FC = () => {
 	const router = useRouter()
 	const [seed, setSeed] = useState('')
-	const [muted, setMuted] = useState<boolean>(true)
+	const [muted, setMuted] = useState<boolean>(false)
 
 	useEffect(() => {
 		if (!seed) {
@@ -24,9 +24,7 @@ const Home: FC = () => {
 					<h1 className="text-gray-400 font-thin text-4xl">ToneMatrix Redux</h1>
 					<p className="text-gray-500 text-center">A pentatonic step sequencer. Click tiles and make music.</p>
 				</div>
-				<div>
-					<ToneGrid seed={seed} setSeed={setSeed} muted={muted} />
-				</div>
+				<ToneGrid seed={seed} setSeed={setSeed} muted={muted} />
 				<div className="flex flex-col md:flex-row items-center justify-between w-full space-y-4 md:space-y-0">
 					<div className="flex items-center space-x-4">
 						<button onClick={() => setMuted(muted => !muted)}>{muted ? <VolumeOffIcon className="w-6 h-6 text-gray-300" /> : <VolumeUpIcon className="w-6 h-6 text-gray-300" />}</button>

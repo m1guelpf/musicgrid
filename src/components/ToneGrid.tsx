@@ -1,8 +1,8 @@
-import dynamic from 'next/dynamic'
-import { CanvasHTMLAttributes, Dispatch, FC, MouseEvent, MouseEventHandler, SetStateAction, TouchEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { CanvasHTMLAttributes, Dispatch, FC, MouseEvent, SetStateAction, TouchEvent, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Grid from '../lib/Grid'
 import Util from '../lib/Util'
 import * as Tone from 'tone'
+import { PlayIcon } from '@heroicons/react/solid'
 
 const GRID_SIZE = {
 	WIDTH: 16,
@@ -13,6 +13,7 @@ const ToneGrid: FC<{ seed: string; setSeed: Dispatch<SetStateAction<string>>; mu
 	const canvasRef = useRef<HTMLCanvasElement>()
 	const mousePos = useRef<{ x: number; y: number }>({ x: -1, y: -1 })
 	const arming = useRef<boolean>(null)
+	const [needsPreloader, setNeedsPreloader] = useState<boolean>(false)
 	const [grid, setGrid] = useState<Grid>(null)
 	useLayoutEffect(() => {
 		setGrid(new Grid(GRID_SIZE.WIDTH, GRID_SIZE.HEIGHT, canvasRef.current))
@@ -29,6 +30,7 @@ const ToneGrid: FC<{ seed: string; setSeed: Dispatch<SetStateAction<string>>; mu
 
 		const initSeed = new URLSearchParams(window.location.search).get('s')
 		if (initSeed) {
+			setNeedsPreloader(true)
 			grid.unserialize(initSeed)
 			setSeed(initSeed)
 		}
@@ -110,7 +112,22 @@ const ToneGrid: FC<{ seed: string; setSeed: Dispatch<SetStateAction<string>>; mu
 		})
 	}
 
-	return <canvas className="h-[300px] md:h-[500px] w-auto cursor-pointer" width="1000" height="1000" ref={canvasRef} onMouseMove={canvasMouseMove} onMouseDown={canvasMouseDown} onMouseLeave={() => (mousePos.current = { x: -1, y: -1 })} onTouchStart={canvasTouchStart} onTouchEnd={() => (mousePos.current = { x: -1, y: -1 })} onTouchMove={canvasTouchMove} {...props} />
+	const startPlaying = () => {
+		Tone.context.resume()
+
+		setNeedsPreloader(false)
+	}
+
+	return (
+		<div className="relative">
+			{needsPreloader && (
+				<button onClick={startPlaying} className="bg-gray-500 bg-opacity-50 backdrop-filter backdrop-blur-sm absolute inset-0 w-full flex items-center justify-center">
+					<PlayIcon className="w-32 h-32 text-white filter drop-shadow-xl" />
+				</button>
+			)}
+			<canvas className="h-[300px] md:h-[500px] w-auto cursor-pointer" width="1000" height="1000" ref={canvasRef} onMouseMove={canvasMouseMove} onMouseDown={canvasMouseDown} onMouseLeave={() => (mousePos.current = { x: -1, y: -1 })} onTouchStart={canvasTouchStart} onTouchEnd={() => (mousePos.current = { x: -1, y: -1 })} onTouchMove={canvasTouchMove} {...props} />
+		</div>
+	)
 }
 
 export default ToneGrid
