@@ -2,6 +2,7 @@ import Grid from './Grid'
 import Util from './Util'
 import SpriteSheet from './SpriteSheet'
 import ParticleSystem, { MAX_PARTICLE_BRIGHTNESS, PARTICLE_LIFETIME, PARTICLE_POOL_SIZE } from './ParticleSystem'
+import { colors } from '../data/colors'
 
 class GridRenderer {
 	spriteSheet: SpriteSheet
@@ -11,6 +12,7 @@ class GridRenderer {
 	canvas: HTMLCanvasElement
 	ctx: CanvasRenderingContext2D
 	lastPlayheadX: number
+	randColors: Array<string>
 
 	constructor(gridWidth: number, gridHeight: number, canvas: HTMLCanvasElement) {
 		this.spriteSheet = new SpriteSheet(gridWidth, gridHeight, canvas.width, canvas.height)
@@ -20,6 +22,7 @@ class GridRenderer {
 		this.canvas = canvas
 		this.ctx = canvas.getContext('2d')
 		this.lastPlayheadX = -1
+		this.randColors = Util.arrayRandom(colors, Util.randomBetween(2, colors.length))
 	}
 
 	update(grid: Grid, mouseX: number, mouseY: number): void {
@@ -36,10 +39,11 @@ class GridRenderer {
 		this.ctx.globalAlpha = 1
 		this.ctx.filter = 'none'
 
-		this.ctx.beginPath()
-		this.ctx.rect(0, 0, this.canvas.width, this.canvas.height)
-		this.ctx.fillStyle = 'black'
-		this.ctx.fill()
+		//this.ctx.beginPath()
+		//this.ctx.rect(0, 0, this.canvas.width, this.canvas.height)
+		//this.ctx.fillStyle = 'black'
+		//this.ctx.fill()
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
 		// Get particle heatmap
 
@@ -54,6 +58,7 @@ class GridRenderer {
 			const { x: gridx, y: gridy } = Util.indexToCoord(i, this.gridHeight)
 			const x = dx * gridx
 			const y = dy * gridy
+			this.spriteSheet.setColor(this.randColors[(x + y) % this.randColors.length])
 
 			const on = !grid.data[i].isEmpty()
 

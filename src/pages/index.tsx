@@ -2,6 +2,9 @@ import { FC, useEffect, useState } from 'react'
 import ToneGrid from '../components/ToneGrid'
 import { VolumeOffIcon, VolumeUpIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/dist/client/router'
+import trianglify from 'trianglify'
+import reactDom from 'react-dom'
+import TriangleBg from '../components/TriangleBg'
 
 const Home: FC = () => {
 	const router = useRouter()
@@ -28,7 +31,9 @@ const Home: FC = () => {
 				<div className="flex flex-col md:flex-row items-center justify-between w-full space-y-4 md:space-y-0">
 					<div className="flex items-center space-x-4">
 						<button onClick={() => setMuted(muted => !muted)}>{muted ? <VolumeOffIcon className="w-6 h-6 text-gray-300" /> : <VolumeUpIcon className="w-6 h-6 text-gray-300" />}</button>
-						<button className="bg-gray-800 py-1 px-2 text-gray-100 font-medium border border-gray-600 rounded-lg">Clear Notes</button>
+						<button onClick={() => null} className="bg-gray-800 py-1 px-2 text-gray-100 font-medium border border-gray-600 rounded-lg">
+							Clear Notes
+						</button>
 					</div>
 					<p className="text-gray-500 text-center md:text-left">
 						Based on{' '}

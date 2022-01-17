@@ -16,7 +16,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "tailwindcss": "^2.2.15",
-    "tone": "^14.5.17"
+    "tone": "^14.5.17",
+    "trianglify": "^4.1.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.24",

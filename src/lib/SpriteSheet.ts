@@ -7,20 +7,24 @@ class SpriteSheet {
 
 	constructor(gridWidth: number, gridHeight: number, canvasWidth: number, canvasHeight: number) {
 		this.spriteSheet = document.createElement('canvas')
-		const ssctx = this.spriteSheet.getContext('2d')
 		this.tileWidth = canvasWidth / gridWidth
 		this.tileHeight = canvasHeight / gridHeight
 		this.spriteSheet.width = 3 * this.tileWidth // 3 sprites
 		this.spriteSheet.height = this.tileHeight
 
+		this.setColor('#ffffff')
+	}
+
+	setColor(color: string): void {
+		const ssctx = this.spriteSheet.getContext('2d')
+		ssctx.clearRect(0, 0, this.spriteSheet.width, this.spriteSheet.height)
 		const currentDevicePixelRatio = window.devicePixelRatio || 1
 
 		// For all rectangles
-
 		let margin, x, y
 		const dx = this.tileWidth
 		const dy = this.tileHeight
-		ssctx.fillStyle = '#fff'
+		ssctx.fillStyle = color
 
 		// Rectangle id 0 - unarmed white rectangle
 		margin = 4 * currentDevicePixelRatio

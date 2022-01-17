@@ -1,8 +1,10 @@
-import { CanvasHTMLAttributes, Dispatch, FC, MouseEvent, SetStateAction, TouchEvent, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { CanvasHTMLAttributes, Dispatch, FC, MouseEvent, SetStateAction, TouchEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import Grid from '../lib/Grid'
 import Util from '../lib/Util'
 import * as Tone from 'tone'
 import { PlayIcon } from '@heroicons/react/solid'
+import { colors } from '../data/colors'
+import TriangleBg from './TriangleBg'
 
 const GRID_SIZE = {
 	WIDTH: 16,
